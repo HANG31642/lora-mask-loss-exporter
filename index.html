@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>LoRA Mask Loss 导出工具</title>
+  <link rel="stylesheet" href="client/style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="main-content">
+      <div class="left-panel">
+        <div class="tree-header">
+          <button id="browseBtn" class="btn">选择目录</button>
+        </div>
+        <div id="treeContainer" class="tree-container">
+          <div class="empty-tree">请选择一个目录</div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="filter-bar">
+          <div class="filter-group">
+            <select id="filterSelect">
+              <option value="all">所有文件</option>
+              <option value="png">PNG</option>
+              <option value="jpg">JPG</option>
+              <option value="psd">PSD</option>
+              <option value="tif">TIFF</option>
+              <option value="bmp">BMP</option>
+              <option value="webp">WebP</option>
+              <option value="gif">GIF</option>
+              <option value="raw">RAW</option>
+            </select>
+            <select id="sortSelect">
+              <option value="name">名称</option>
+              <option value="modified">修改时间</option>
+              <option value="size">大小</option>
+              <option value="type">类型</option>
+            </select>
+            <button id="sortOrderBtn" class="btn btn-small" title="排序方向">↑</button>
+          </div>
+          <div class="filter-group">
+            <button id="refreshBtn" class="btn btn-small" title="刷新当前文件夹">↻ 刷新</button>
+            <button id="resetStatusBtn" class="btn btn-small" title="重置所有导出状态">重置状态</button>
+          </div>
+        </div>
+
+        <div class="size-bar">
+          <label>缩略图:</label>
+          <input type="range" id="thumbSizeSlider" min="60" max="200" value="120" step="10">
+          <span id="thumbSizeLabel">120px</span>
+        </div>
+
+        <div id="thumbnailGrid" class="thumb-grid">
+          <div class="empty-state"><div>请选择一个目录</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="info-bar">
+        <span id="infoText">未选择文件</span>
+        <button id="openInPSBtn" class="btn btn-small" disabled>▶ 在 PS 中打开</button>
+      </div>
+
+      <div class="export-section">
+        <div class="export-row">
+          <div class="mode-group">
+            <button id="modeAlpha" class="mode-btn active">Alpha 掩码</button>
+            <button id="modeBW" class="mode-btn">Conditioning 掩码</button>
+          </div>
+          <div class="param-group">
+            <label>尺寸</label>
+            <select id="sizeModeSelect">
+              <option value="original">原始</option>
+              <option value="scale">百分比</option>
+              <option value="fixed">固定最长边</option>
+            </select>
+          </div>
+          <div id="scaleOpt" class="param-group" style="display:none">
+            <input type="number" id="scalePercent" value="100" min="1" max="1000" class="num-input"><span>%</span>
+          </div>
+          <div id="fixedOpt" class="param-group" style="display:none">
+            <select id="longestSideSelect">
+              <option value="256">256</option>
+              <option value="512">512</option>
+              <option value="768">768</option>
+              <option value="1024" selected>1024</option>
+              <option value="1536">1536</option>
+              <option value="2048">2048</option>
+              <option value="3072">3072</option>
+              <option value="4096">4096</option>
+              <option value="0">自定义</option>
+            </select>
+            <input type="number" id="customLongestSide" value="1024" min="64" max="8192" class="num-input" style="display:none">
+            <span>px 最长边</span>
+          </div>
+          <label class="checkbox-label">
+            <input type="checkbox" id="autoBinarizeCheck"> 二值化
+          </label>
+        </div>
+        <div class="export-row">
+          <div class="param-group" style="flex:1;min-width:0">
+            <label>输出目录</label>
+            <input type="text" id="outputPathInput" placeholder="请选择..." readonly style="flex:1">
+            <button id="outputBrowseBtn" class="btn btn-small">浏览</button>
+          </div>
+          <button id="exportBtn" class="btn btn-primary">📤 导出当前</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="log-section">
+      <div class="log-header" id="logHeader">
+        <span id="logToggle">▶</span> 运行日志
+        <button id="clearLogBtn" class="btn btn-small" style="margin-left:auto">清空</button>
+      </div>
+      <div id="logBody" class="log-body" style="display:none">
+        <div id="logOutput" class="log-output"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="client/CSInterface.js?v=2"></script>
+  <script src="client/lib/config.js?v=2"></script>
+  <script src="client/lib/psBridge.js?v=2"></script>
+  <script src="client/lib/fileBrowser.js?v=2"></script>
+  <script src="client/lib/thumbnailManager.js?v=2"></script>
+  <script src="client/lib/exportManager.js?v=2"></script>
+  <script src="client/index.js?v=2"></script>
+</body>
+</html>
