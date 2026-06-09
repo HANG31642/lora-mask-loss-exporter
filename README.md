@@ -57,17 +57,14 @@ loss_final = loss_raw × mask
 
 - 📁 目录树浏览，支持懒加载子文件夹
 - 🖼️ 缩略图网格，60~200px 可调滑块，自动均分列宽
-- 🔍 格式过滤（PNG/JPG/PSD/TIFF/WebP/RAW 等）
+- 🔍 默认显示所有文件，可按格式筛选（PNG/JPG/PSD/TIFF/WebP/RAW 等）
 - 📊 四种排序方式（名称/修改时间/大小/类型）
 - 🏷️ 导出状态徽章（✔已导出 / ⚠失败）
 - 📝 运行日志面板
 - 💾 UI 参数自动记忆（输出路径、缩放、模式等）
+- 📐 固定最长边模式：超过设定值才压缩，不超过保持原尺寸（不放大）
 - 🔧 自动识别 PS 安装目录，无需手动配置路径
 - 🚫 不依赖任何第三方库，纯 Adobe CEP + Node.js 内置模块
-
-## 支持格式
-
-PNG · JPG · JPEG · PSD · TIFF · BMP · WebP · GIF · RAW · ARW · CR2 · NEF · DNG
 
 ## 要求
 
